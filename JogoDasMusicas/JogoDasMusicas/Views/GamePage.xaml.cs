@@ -2,9 +2,9 @@
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using JogoDasMusicas.ViewModel;
+using JogoDasMusicas.ViewModels;
 
-namespace JogoDasMusicas
+namespace JogoDasMusicas.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class GamePage : ContentPage

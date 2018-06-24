@@ -1,3 +1,4 @@
+using JogoDasMusicas.Views;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

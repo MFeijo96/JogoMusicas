@@ -1,14 +1,12 @@
 ﻿using JogoDasMusicas.Models;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text;
 
-namespace JogoDasMusicas.ViewModel
+namespace JogoDasMusicas.ViewModels
 {
     public class GameViewModel : INotifyPropertyChanged
     {
