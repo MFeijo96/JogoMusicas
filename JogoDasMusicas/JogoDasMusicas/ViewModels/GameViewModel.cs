@@ -21,6 +21,13 @@ namespace JogoDasMusicas.ViewModels
             {
                 Lyrics = JsonConvert.DeserializeObject<Game>(reader.ReadToEnd()).Lyrics;
             }
+
+            var assembly = this.GetType().GetTypeInfo().Assembly.GetManifestResourceNames();
+
+            Stream audioStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("JogoDasMusicas.Droid.Raul Seixas - Maluco Beleza.mp3");
+            var player = Plugin.SimpleAudioPlayer.CrossSimpleAudioPlayer.Current;
+            player.Load(audioStream);
+            player.Play();
         }
 
         void OnPropertyChanged([CallerMemberName] string name = "")

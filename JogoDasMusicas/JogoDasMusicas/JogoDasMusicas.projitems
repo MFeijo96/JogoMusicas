@@ -45,4 +45,7 @@
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Views\" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Raul Seixas - Maluco Beleza.mp3" />
+  </ItemGroup>
 </Project>
