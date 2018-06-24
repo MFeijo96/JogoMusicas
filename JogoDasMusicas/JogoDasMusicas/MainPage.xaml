@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="JogoDasMusicas.MainPage">
+	<ContentPage.Content>
+		<StackLayout>
+			<Label Text="Jogo das Músicas"
+				Font="Large"
+            VerticalOptions="Center" 
+            HorizontalOptions="CenterAndExpand" />
+			<Button Text="Start"
+            VerticalOptions="Center" 
+            HorizontalOptions="CenterAndExpand"
+			Clicked="StartGame"	/>
+		</StackLayout>
+	</ContentPage.Content>
+</ContentPage>
