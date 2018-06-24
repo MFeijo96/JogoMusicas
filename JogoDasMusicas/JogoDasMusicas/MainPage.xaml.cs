@@ -14,7 +14,7 @@ namespace JogoDasMusicas
 
         public void StartGame()
         {
-
+            this.Navigation.PushAsync(new GamePage());
         }
 	}
 }

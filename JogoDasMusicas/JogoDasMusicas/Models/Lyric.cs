@@ -4,9 +4,9 @@ using System.Text;
 
 namespace JogoDasMusicas.Models
 {
-    class Lyric
+    public class Lyric
     {
-        public string lyric;
-        public int time;
+        public string Verse;
+        public int EndsIn;
     }
 }

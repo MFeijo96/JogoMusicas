@@ -4,7 +4,7 @@
              x:Class="JogoDasMusicas.GamePage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
+			<Label Text="{Binding CurrentVerse}"
 					x:Name="lyricLabel"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
