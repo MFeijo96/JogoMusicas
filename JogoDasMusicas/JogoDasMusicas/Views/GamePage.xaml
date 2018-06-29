@@ -5,9 +5,28 @@
     <ContentPage.Content>
         <StackLayout>
 			<Label Text="{Binding CurrentVerse}"
-					x:Name="lyricLabel"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+			<StackLayout Orientation="Horizontal">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="7*" />
+						<ColumnDefinition Width="5*" />
+					</Grid.ColumnDefinitions>
+					<Entry Text="{Binding WordText}"
+						   Placeholder="Digite a palavra aqui"
+						   IsEnabled="{Binding CanAnswer}"
+							VerticalOptions="CenterAndExpand" 
+							Grid.Column="0"
+							HorizontalOptions="StartAndExpand"/>
+					<Button VerticalOptions="CenterAndExpand" 
+							HorizontalOptions="EndAndExpand"
+							Text="Aceitar"
+							IsEnabled="{Binding CanAnswer}"
+							Grid.Column="1"
+							Command="{Binding ButtonClickedCommand}"/>
+				</Grid>
+			</StackLayout>
+		</StackLayout>
     </ContentPage.Content>
 </ContentPage>

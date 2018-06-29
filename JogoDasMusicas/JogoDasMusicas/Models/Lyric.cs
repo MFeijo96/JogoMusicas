@@ -8,5 +8,6 @@ namespace JogoDasMusicas.Models
     {
         public string Verse;
         public int EndsIn;
+        public string CorrectWord;
     }
 }

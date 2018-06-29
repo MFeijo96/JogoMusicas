@@ -1,5 +1,6 @@
 ﻿using JogoDasMusicas.Models;
 using Newtonsoft.Json;
+using Plugin.SimpleAudioPlayer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,19 +8,27 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Timers;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace JogoDasMusicas.ViewModels
 {
     public class GameViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        public ICommand ButtonClickedCommand { get; set; }
         public List<Lyric> Lyrics;
-        private Timer LyricTimer;
-        private int CurrentVerseIndex;
+        private Timer LyricTimer, AnswerTimer;
+        private int CurrentVerseIndex, TotalPoints = 0;
+        private ISimpleAudioPlayer Player;
+        private DateTime StartTime;
+        private bool WaitForAnswer;
 
         public GameViewModel ()
         {
+            ButtonClickedCommand = new Command(() => OnButtonClicked());
             Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("JogoDasMusicas.Droid.musica.json");
+            CanAnswer = false;
 
             using (var reader = new StreamReader(stream))
             {
@@ -29,9 +38,9 @@ namespace JogoDasMusicas.ViewModels
             var assembly = this.GetType().GetTypeInfo().Assembly.GetManifestResourceNames();
 
             Stream audioStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("JogoDasMusicas.Droid.Raul Seixas - Maluco Beleza.mp3");
-            var player = Plugin.SimpleAudioPlayer.CrossSimpleAudioPlayer.Current;
-            player.Load(audioStream);
-            player.Play();
+            Player = CrossSimpleAudioPlayer.Current;
+            Player.Load(audioStream);
+            Player.Play();
 
             StartTimer();
         }
@@ -45,18 +54,68 @@ namespace JogoDasMusicas.ViewModels
 
         private void OnFinishTime(object sender, ElapsedEventArgs e)
         {
-            if (CurrentVerseIndex == Lyrics.Count)
+            if (WaitForAnswer)
+            {
+                Player.Pause();
+                StartAnswerTimer();
+            }
+            else if (CurrentVerseIndex == Lyrics.Count)
             {
                 CurrentVerse = string.Empty;
                 LyricTimer.Enabled = false;
             }
             else
             {
-                int lastTime = CurrentVerseIndex == 0 ? 10 : Lyrics[CurrentVerseIndex - 1].EndsIn;
-                int currentTime = Lyrics[CurrentVerseIndex].EndsIn;
-                CurrentVerse = Lyrics[CurrentVerseIndex++].Verse;
-                LyricTimer.Interval = (currentTime - lastTime) * 1000;
+                UpdateLyric();
+
+                WaitForAnswer = CurrentVerse.Contains("*");
             }
+        }
+
+        private void UpdateLyric()
+        {
+            int lastTime = CurrentVerseIndex == 0 ? 10 : Lyrics[CurrentVerseIndex - 1].EndsIn;
+            int currentTime = Lyrics[CurrentVerseIndex].EndsIn;
+            CurrentVerse = Lyrics[CurrentVerseIndex++].Verse;
+            LyricTimer.Interval = (currentTime - lastTime) * 1000;
+        }
+
+        private void StartAnswerTimer()
+        {
+            CanAnswer = true;
+            StartTime = DateTime.Now;
+            AnswerTimer = new Timer(10000);
+            AnswerTimer.Elapsed += OnFinishAnswerTime;
+            AnswerTimer.Enabled = true;
+        }
+
+        private void OnFinishAnswerTime(object sender, ElapsedEventArgs e)
+        {
+            ResetMusic();
+        }
+
+        public void OnButtonClicked()
+        {
+            if (CanAnswer)
+            {
+                if (CurrentVerse.Equals(Lyrics[CurrentVerseIndex - 1].CorrectWord))
+                {
+                    TimeSpan span = DateTime.Now - StartTime;
+                    TotalPoints += (int)span.TotalMilliseconds / 10;
+                }
+
+                ResetMusic();
+            }
+        }
+
+        private void ResetMusic()
+        {
+            WordText = string.Empty;
+            AnswerTimer.Enabled = false;
+            WaitForAnswer = false;
+            CanAnswer = false;
+            UpdateLyric();
+            Player.Play();
         }
 
         void OnPropertyChanged([CallerMemberName] string name = "")
@@ -64,6 +123,7 @@ namespace JogoDasMusicas.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
+        #region Properties
         string currentVerse = string.Empty;
         public string CurrentVerse
         {
@@ -74,5 +134,28 @@ namespace JogoDasMusicas.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        string wordText = string.Empty;
+        public string WordText
+        {
+            get { return wordText; }
+            set
+            {
+                wordText = value;
+                OnPropertyChanged();
+            }
+        }
+
+        bool canAnswer = false;
+        public bool CanAnswer
+        {
+            get { return canAnswer; }
+            set
+            {
+                canAnswer = value;
+                OnPropertyChanged();
+            }
+        }
+        #endregion
     }
 }
