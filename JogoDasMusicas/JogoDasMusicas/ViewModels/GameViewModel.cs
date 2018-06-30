@@ -112,6 +112,7 @@ namespace JogoDasMusicas.ViewModels
         {
             WordText = string.Empty;
             AnswerTimer.Enabled = false;
+            AnswerTimer = null;
             WaitForAnswer = false;
             CanAnswer = false;
             UpdateLyric();
