@@ -1,32 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="JogoDasMusicas.Views.GamePage">
+             x:Class="JogoDasMusicas.Views.GamePage"
+             BackgroundColor="Black">
     <ContentPage.Content>
         <StackLayout>
-			<Label Text="{Binding CurrentVerse}"
+            <Label Text="{Binding CurrentVerse}"
                 VerticalOptions="CenterAndExpand" 
+                   FontSize="Medium"
+                   TextColor="Yellow"
                 HorizontalOptions="CenterAndExpand" />
-			<StackLayout Orientation="Horizontal">
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="7*" />
-						<ColumnDefinition Width="5*" />
-					</Grid.ColumnDefinitions>
-					<Entry Text="{Binding WordText}"
+            <StackLayout Orientation="Horizontal">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="7*" />
+                        <ColumnDefinition Width="5*" />
+                    </Grid.ColumnDefinitions>
+                    <Entry x:Name="AnswerEntry"
+                        Text="{Binding WordText}"
 						   Placeholder="Digite a palavra aqui"
-						   IsEnabled="{Binding CanAnswer}"
+                           TextColor="Pink"
 							VerticalOptions="CenterAndExpand" 
 							Grid.Column="0"
 							HorizontalOptions="StartAndExpand"/>
-					<Button VerticalOptions="CenterAndExpand" 
+                    <Button x:Name="myButton" 
+                        VerticalOptions="CenterAndExpand" 
 							HorizontalOptions="EndAndExpand"
 							Text="Aceitar"
 							IsEnabled="{Binding CanAnswer}"
 							Grid.Column="1"
 							Command="{Binding ButtonClickedCommand}"/>
-				</Grid>
-			</StackLayout>
-		</StackLayout>
+                </Grid>
+            </StackLayout>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
