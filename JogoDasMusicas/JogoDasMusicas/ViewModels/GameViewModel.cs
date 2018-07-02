@@ -26,7 +26,6 @@ namespace JogoDasMusicas.ViewModels
 
         public GameViewModel ()
         {
-            ButtonClickedCommand = new Command(() => OnButtonClicked());
             Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("JogoDasMusicas.Droid.musica.json");
             CanAnswer = false;
 
@@ -94,7 +93,7 @@ namespace JogoDasMusicas.ViewModels
             ResetMusic();
         }
 
-        public void OnButtonClicked()
+        public void OnCompletedEntry()
         {
             if (CanAnswer)
             {

@@ -10,28 +10,14 @@
                    FontSize="Medium"
                    TextColor="Yellow"
                 HorizontalOptions="CenterAndExpand" />
-            <StackLayout Orientation="Horizontal">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="7*" />
-                        <ColumnDefinition Width="5*" />
-                    </Grid.ColumnDefinitions>
-                    <Entry x:Name="AnswerEntry"
-                        Text="{Binding WordText}"
-						   Placeholder="Digite a palavra aqui"
-                           TextColor="Pink"
-							VerticalOptions="CenterAndExpand" 
-							Grid.Column="0"
-							HorizontalOptions="StartAndExpand"/>
-                    <Button x:Name="myButton" 
-                        VerticalOptions="CenterAndExpand" 
-							HorizontalOptions="EndAndExpand"
-							Text="Aceitar"
-							IsEnabled="{Binding CanAnswer}"
-							Grid.Column="1"
-							Command="{Binding ButtonClickedCommand}"/>
-                </Grid>
-            </StackLayout>
-        </StackLayout>
+			<Entry x:Name="AnswerEntry"
+					Text="{Binding WordText}"
+					TextColor="Pink"
+					VerticalOptions="End" 
+					Grid.Column="0"
+					HorizontalOptions="EndAndExpand"
+					Placeholder="Digite aqui"
+					Completed="OnCompletedEntry"/>
+		</StackLayout>
     </ContentPage.Content>
 </ContentPage>

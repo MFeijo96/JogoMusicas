@@ -2,23 +2,33 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="JogoDasMusicas.Views.MainPage"
-             BackgroundImage="background_menu">
+             BackgroundImage="fundo">
 	<ContentPage.Content>
-        <Frame HorizontalOptions="Center" VerticalOptions="Start" BackgroundColor="Transparent" Margin="100">
-            <StackLayout Spacing="50">
-            <Label Text="Jogo das Músicas"
-				Font="Large"
-                FontSize="40"
-                VerticalOptions="Start" 
-                TextColor="White"
-                HorizontalOptions="CenterAndExpand" />
-           
-            <Button Text="Iniciar"
-                VerticalOptions="End" 
-                BackgroundColor="Transparent"
-                TextColor="White"
-                HorizontalOptions="CenterAndExpand"
-			    Clicked="StartGame"	/>
+        <Frame HorizontalOptions="Center" VerticalOptions="Start" BackgroundColor="Transparent">
+			<Frame.Margin>
+				<OnPlatform x:TypeArguments="Thickness">
+					<OnPlatform.Platforms>
+						<On Platform="Android" Value="0, 20, 0, 0" />
+					</OnPlatform.Platforms>
+				</OnPlatform>
+			</Frame.Margin>
+			<StackLayout Spacing="40">
+				<Label Text="Jogo das Músicas"
+					Font="Large"
+					FontSize="36"
+					VerticalOptions="Start" 
+					TextColor="White"
+					HorizontalOptions="CenterAndExpand" />
+				<Button Text="Iniciar"
+					VerticalOptions="End" 
+					BackgroundColor="Transparent"
+					TextColor="White"
+					FontSize="17"
+					BorderColor="White"
+					BorderRadius="10"
+					BorderWidth="2"
+					HorizontalOptions="CenterAndExpand"
+					Clicked="StartGame"	/>
             </StackLayout>
         </Frame>
     </ContentPage.Content>

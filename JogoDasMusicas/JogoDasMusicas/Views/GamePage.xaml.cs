@@ -16,10 +16,14 @@ namespace JogoDasMusicas.Views
 
             BindingContext = new GameViewModel();
             AnswerEntry2 = this.FindByName<Entry>("AnswerEntry");
-            this.FindByName<Button>("myButton").IsEnabled = false;
 
             Appearing += GetEntryFocus;
             AnswerEntry2.Unfocused += GetEntryFocus;
+        }
+
+        public void OnCompletedEntry()
+        {
+            ((GameViewModel)BindingContext).OnCompletedEntry();
         }
 
         private void GetEntryFocus(object sender, EventArgs e)
