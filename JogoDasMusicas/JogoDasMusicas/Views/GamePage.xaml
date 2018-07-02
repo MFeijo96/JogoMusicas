@@ -5,19 +5,32 @@
              BackgroundColor="Black">
     <ContentPage.Content>
         <StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label HorizontalOptions="End" TextColor="Yellow" Text="Pontuação: "/>
+                <Label HorizontalOptions="End" TextColor="Yellow" Text="{Binding TotalPoints}"/>
+            </StackLayout>
             <Label Text="{Binding CurrentVerse}"
-                VerticalOptions="CenterAndExpand" 
+                VerticalOptions="CenterAndExpand"
+                   Margin="20"
                    FontSize="Medium"
                    TextColor="Yellow"
-                HorizontalOptions="CenterAndExpand" />
-			<Entry x:Name="AnswerEntry"
+                HorizontalOptions="CenterAndExpand">
+                <Label.Margin>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <OnPlatform.Platforms>
+                        <On Platform="Android" Value="25, 80, 25, 0" />
+                    </OnPlatform.Platforms>
+                </OnPlatform>
+            </Label.Margin>
+            </Label>
+            <Entry x:Name="AnswerEntry"
 					Text="{Binding WordText}"
 					TextColor="Pink"
 					VerticalOptions="End" 
-					Grid.Column="0"
-					HorizontalOptions="EndAndExpand"
+					HorizontalOptions="FillAndExpand"
 					Placeholder="Digite aqui"
-					Completed="OnCompletedEntry"/>
-		</StackLayout>
+					Completed="OnCompletedEntry"
+                   Margin="15"/>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

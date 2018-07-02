@@ -19,7 +19,7 @@ namespace JogoDasMusicas.ViewModels
         public ICommand ButtonClickedCommand { get; set; }
         public List<Lyric> Lyrics;
         private Timer LyricTimer, AnswerTimer;
-        private int CurrentVerseIndex, TotalPoints = 0;
+        private int CurrentVerseIndex;
         private ISimpleAudioPlayer Player;
         private DateTime StartTime;
         private bool WaitForAnswer;
@@ -97,7 +97,7 @@ namespace JogoDasMusicas.ViewModels
         {
             if (CanAnswer)
             {
-                if (CurrentVerse.Equals(Lyrics[CurrentVerseIndex - 1].CorrectWord))
+                if (WordText.Equals(Lyrics[CurrentVerseIndex - 1].CorrectWord))
                 {
                     TimeSpan span = DateTime.Now - StartTime;
                     TotalPoints += (int)span.TotalMilliseconds / 10;
@@ -131,6 +131,17 @@ namespace JogoDasMusicas.ViewModels
             set
             {
                 currentVerse = value;
+                OnPropertyChanged();
+            }
+        }
+
+        int totalPoints = 0;
+        public int TotalPoints
+        {
+            get { return totalPoints; }
+            set
+            {
+                totalPoints = value;
                 OnPropertyChanged();
             }
         }
